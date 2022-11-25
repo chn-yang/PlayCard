@@ -128,7 +128,7 @@ public class Main extends JFrame implements ActionListener {
 	public void CardInit() {
 
 		int count = 1;
-		// 初始化牌
+		// 初始化牌, 花色i从1-5 黑桃, 红桃, 梅花, 方块, 王牌, 牌数值从1-13代表A-K, 花色5 代表小王-大王
 		for (int i = 1; i <= 5; i++) {
 			for (int j = 1; j <= 13; j++) {
 				if ((i == 5) && (j > 2))
