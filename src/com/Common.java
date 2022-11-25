@@ -33,9 +33,10 @@ public class Common {
 					return CardType.c4;
 				}
 			}
-			// 双王,化为对子返回
-			if (len == 2 && Common.getColor(list.get(1)) == 5)
-				return CardType.c2;
+			// 双王, 王炸
+			if (len == 2 && Common.getColor(list.get(0)) == 5 && Common.getColor(list.get(1)) == 5) {
+				return CardType.c4;
+			}
 			// 当第一个和最后个不同时,3带1
 			if (len == 4
 					&& ((Common.getValue(list.get(0)) == Common.getValue(list
@@ -173,7 +174,7 @@ public class Common {
 	}
 
 	/**
-	 * 重新定位 
+	 * 重新定位
 	 * flag代表电脑1 ,2 或者是我
 	 * @param m
 	 * @param list
@@ -252,7 +253,7 @@ public class Common {
 		int count[] = new int[14];// 1-13各算一种,王算第14种
 		for (int i = 0; i < 14; i++)
 			count[i] = 0;
-		
+
 		for (int i = 0, len = list.size(); i < len; i++) {
 			if (Common.getColor(list.get(i)) == 5)// 王
 				count[13]++;
