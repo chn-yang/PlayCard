@@ -5,10 +5,9 @@ import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,18 +24,18 @@ public class Main extends JFrame implements ActionListener {
 
 	public Container container = null;// 定义容器
 	JMenuItem start, exit, about;// 定义菜单按钮
-	JButton landlord[] = new JButton[2];// 抢地主按钮
-	JButton publishCard[] = new JButton[2];// 出牌按钮
+	JButton[] landlord = new JButton[2];// 抢地主按钮
+	JButton[] publishCard = new JButton[2];// 出牌按钮
 	int dizhuFlag;// 地主标志
 	int turn;
 	JLabel dizhu; // 地主图标
-	List<Card> currentList[] = new Vector[3]; // 当前的出牌
-	List<Card> playerList[] = new Vector[3]; // 3个玩家(列表)
+	List<Card>[] currentList = new CopyOnWriteArrayList[3]; // 当前的出牌
+	List<Card>[] playerList = new CopyOnWriteArrayList[3]; // 3个玩家(列表)
 	
 	List<Card> lordList;// 地主牌
 	
-	Card card[] = new Card[56]; // 定义54张牌
-	JTextField time[] = new JTextField[3]; // 计时器
+	Card[] card = new Card[56]; // 定义54张牌
+	JTextField[] time = new JTextField[3]; // 计时器
 	Time t; // 定时器（线程）
 	boolean nextPlayer = false; // 转换角色
 
@@ -119,7 +118,7 @@ public class Main extends JFrame implements ActionListener {
 		time[2].setBounds(620, 230, 60, 20);
 
 		for (int i = 0; i < 3; i++) {
-			currentList[i] = new Vector<Card>();
+			currentList[i] = new CopyOnWriteArrayList<Card>();
 		}
 	}
 
@@ -156,9 +155,9 @@ public class Main extends JFrame implements ActionListener {
 		
 		// 开始发牌
 		for (int i = 0; i < 3; i++)
-			playerList[i] = new Vector<Card>(); // 玩家牌
+			playerList[i] = new CopyOnWriteArrayList<Card>(); // 玩家牌
 		
-		lordList = new Vector<Card>();// 地主牌三张
+		lordList = new CopyOnWriteArrayList<Card>();// 地主牌三张
 		int t = 0;
 		for (int i = 1; i <= 54; i++) {
 			if (i >= 52){ // 地主牌
@@ -237,7 +236,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 		// 如果是出牌按钮
 		if (e.getSource() == publishCard[0]) {
-			List<Card> c = new Vector<Card>();
+			List<Card> c = new CopyOnWriteArrayList<Card>();
 			// 点选出牌
 			for (int i = 0; i < playerList[1].size(); i++) {
 				Card card = playerList[1].get(i);

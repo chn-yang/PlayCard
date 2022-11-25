@@ -1,7 +1,7 @@
 package com;
 
 import java.awt.Point;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -50,7 +50,7 @@ public class Common {
 		if (len >= 5) {// 现在按相同数字最大出现次数
 			Card_index card_index = new Card_index();
 			for (int i = 0; i < 4; i++)
-				card_index.a[i] = new Vector<Integer>();
+				card_index.a[i] = new CopyOnWriteArrayList<Integer>();
 			// 求出各种数字出现频率
 			Common.getMax(card_index, list); // a[0,1,2,3]分别表示重复1,2,3,4次的牌
 			// 3带2 -----必含重复3次的牌
@@ -280,7 +280,7 @@ public class Common {
 	// 拆牌
 	public static Model getModel(List<Card> list,int[] orders) {
 		// 先复制一个list
-		List list2 = new Vector<Card>(list);
+		List list2 = new CopyOnWriteArrayList<Card>(list);
 		Model model = new Model();
 		for(int i=0;i<orders.length;i++)
 			showOrders(orders[i], list2, model);
@@ -289,7 +289,7 @@ public class Common {
 
 	// 拆连子
 	public static void get123(List<Card> list, Model model) {
-		List<Card> del = new Vector<Card>();// 要删除的Cards
+		List<Card> del = new CopyOnWriteArrayList<Card>();// 要删除的Cards
 		if (list.size() > 0
 				&& (Common.getValue(list.get(0)) < 7 || Common.getValue(list
 						.get(list.size() - 1)) > 10))
@@ -297,9 +297,9 @@ public class Common {
 		if (list.size() < 5)
 			return;
 		// 先要把所有不重复的牌归为一类，防止3带，对子影响
-		List<Card> list2 = new Vector<Card>();
-		List<Card> temp = new Vector<Card>();
-		List<Integer> integers = new Vector<Integer>();
+		List<Card> list2 = new CopyOnWriteArrayList<Card>();
+		List<Card> temp = new CopyOnWriteArrayList<Card>();
+		List<Integer> integers = new CopyOnWriteArrayList<Integer>();
 		for (Card card : list2) {
 			if (integers.indexOf(Common.getValue(card)) < 0) {
 				integers.add(Common.getValue(card));
@@ -332,7 +332,7 @@ public class Common {
 
 	// 拆双顺
 	public static void getTwoTwo(List<Card> list, Model model) {
-		List<String> del = new Vector<String>();// 要删除的Cards
+		List<String> del = new CopyOnWriteArrayList<String>();// 要删除的Cards
 		// 从model里面的对子找
 		List<String> l = model.a2;
 		if (l.size() < 3)
@@ -367,7 +367,7 @@ public class Common {
 
 	// 拆飞机
 	public static void getPlane(List<Card> list, Model model) {
-		List<String> del = new Vector<String>();// 要删除的Cards
+		List<String> del = new CopyOnWriteArrayList<String>();// 要删除的Cards
 		// 从model里面的3带找
 		List<String> l = model.a3;
 		if (l.size() < 2)
@@ -400,7 +400,7 @@ public class Common {
 
 	// 拆炸弹
 	public static void getBoomb(List<Card> list, Model model) {
-		List<Card> del = new Vector<Card>();// 要删除的Cards
+		List<Card> del = new CopyOnWriteArrayList<Card>();// 要删除的Cards
 		if(list.size()<1)
 			return;
 		// 王炸
@@ -437,7 +437,7 @@ public class Common {
 
 	// 拆3带
 	public static void getThree(List<Card> list, Model model) {
-		List<Card> del = new Vector<Card>();// 要删除的Cards
+		List<Card> del = new CopyOnWriteArrayList<Card>();// 要删除的Cards
 		// 连续3张相同
 		for (int i = 0, len = list.size(); i < len; i++) {
 			if (i + 2 < len
@@ -457,7 +457,7 @@ public class Common {
 
 	// 拆对子
 	public static void getTwo(List<Card> list, Model model) {
-		List<Card> del = new Vector<Card>();// 要删除的Cards
+		List<Card> del = new CopyOnWriteArrayList<Card>();// 要删除的Cards
 		// 连续2张相同
 		for (int i = 0, len = list.size(); i < len; i++) {
 			if (i + 1 < len
@@ -476,7 +476,7 @@ public class Common {
 
 	// 拆单牌
 	public static void getSingle(List<Card> list, Model model) {
-		List<Card> del = new Vector<Card>();// 要删除的Cards
+		List<Card> del = new CopyOnWriteArrayList<Card>();// 要删除的Cards
 		// 1
 		for (int i = 0, len = list.size(); i < len; i++) {
 			model.a1.add(list.get(i).name);
@@ -555,9 +555,9 @@ public class Common {
 
 	// 按照重复次数排序
 	public static List getOrder2(List<Card> list) {
-		List<Card> list2 = new Vector<Card>(list);
-		List<Card> list3 = new Vector<Card>();
-		List<Integer> list4 = new Vector<Integer>();
+		List<Card> list2 = new CopyOnWriteArrayList<Card>(list);
+		List<Card> list3 = new CopyOnWriteArrayList<Card>();
+		List<Integer> list4 = new CopyOnWriteArrayList<Integer>();
 		int len = list2.size();
 		int a[] = new int[20];
 		for (int i = 0; i < 20; i++)
@@ -608,5 +608,5 @@ public class Common {
 }
 
 class Card_index {
-	List a[] = new Vector[4];// 单张
+	List a[] = new CopyOnWriteArrayList[4];// 单张
 }

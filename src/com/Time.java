@@ -1,8 +1,8 @@
 package com;
 
 import java.awt.Point;
-import java.util.Vector;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -180,7 +180,7 @@ public class Time extends Thread {
 		int orders[] = new int[] { 4, 3, 2, 1, 5 };
 		Model model = Common.getModel(main.playerList[role], orders);
 		// 待走的牌
-		List<String> list = new Vector();
+		List<String> list = new CopyOnWriteArrayList();
 		// 如果是主动出牌
 		if (main.time[(role + 1) % 3].getText().equals("不要")
 				&& main.time[(role + 2) % 3].getText().equals("不要")) {
@@ -373,7 +373,7 @@ public class Time extends Thread {
 			point.y = (400 / 2) - (list.size() + 1) * 15 / 2;// 屏幕中部
 			// 将name转换成Card
 			//把要出的牌放到里面
-			List<Card> temp=new Vector<Card>();
+			List<Card> temp=new CopyOnWriteArrayList<Card>();
 			for (int i = 0, len = list.size(); i < len; i++) {
 				List<Card> cards = getCardByName(main.playerList[role],
 						list.get(i));
@@ -401,7 +401,7 @@ public class Time extends Thread {
 	// 按name获得Card，方便从Model取出
 	public List getCardByName(List<Card> list, String n) {
 		String[] name = n.split(",");
-		List cardsList = new Vector<Card>();
+		List cardsList = new CopyOnWriteArrayList<Card>();
 		int j = 0;
 		for (int i = 0, len = list.size(); i < len; i++) {
 			if (j < name.length && list.get(i).name.equals(name[j])) {
